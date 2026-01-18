@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const AI_API_URL = import.meta.env.VITE_AI_API_URL;
 
@@ -7,8 +7,6 @@ export interface MistakeResult {
   extra: string[];
   replaced: { expected: string; got: string }[];
 }
-
-
 
 export interface AnalysisResult {
   mistakes: MistakeResult;
@@ -28,17 +26,17 @@ export interface SessionNote {
 
 export const analyzeAudio = async (
   audioBlob: Blob,
-  surah: string = 'An-Nas',
-  language: string = 'ar'
+  surah: string = "An-Nas",
+  language: string = "ar",
 ): Promise<AnalysisResult> => {
   const formData = new FormData();
-  formData.append('file', audioBlob, 'recording.wav');
+  formData.append("file", audioBlob, "recording.wav");
 
   try {
     const response = await axios.post(
-      `${AI_API_URL}/audio/analyze?surah=${encodeURIComponent(surah)}&language=${encodeURIComponent(language)}`,
+      `${AI_API_URL}/analyze?surah=${encodeURIComponent(surah)}&language=${encodeURIComponent(language)}`,
       formData,
-      { headers: { 'Content-Type': 'multipart/form-data' } }
+      { headers: { "Content-Type": "multipart/form-data" } },
     );
 
     const data = response.data;
@@ -48,8 +46,10 @@ export const analyzeAudio = async (
     if (data.ayahs && Array.isArray(data.ayahs)) {
       data.ayahs.forEach((ayah: any) => {
         if (ayah.mistakes) {
-          if (ayah.mistakes.replaced) mistakes.replaced.push(...ayah.mistakes.replaced);
-          if (ayah.mistakes.missing) mistakes.missing.push(...ayah.mistakes.missing);
+          if (ayah.mistakes.replaced)
+            mistakes.replaced.push(...ayah.mistakes.replaced);
+          if (ayah.mistakes.missing)
+            mistakes.missing.push(...ayah.mistakes.missing);
           if (ayah.mistakes.extra) mistakes.extra.push(...ayah.mistakes.extra);
         }
       });
@@ -60,23 +60,26 @@ export const analyzeAudio = async (
       mistakes,
       accuracy: data.overall_accuracy ?? 0,
       recommendation: data.recommendation || "جرب القراءة مرة أخرى بوضوح.",
-      totalMistakes: mistakes.replaced.length + mistakes.missing.length + mistakes.extra.length,
-      totalWords: data.total_words || 0 // استلام إجمالي الكلمات من بيانات السيرفر
+      totalMistakes:
+        mistakes.replaced.length +
+        mistakes.missing.length +
+        mistakes.extra.length,
+      totalWords: data.total_words || 0, // استلام إجمالي الكلمات من بيانات السيرفر
     };
   } catch (error) {
-    console.error('API Error:', error);
-    throw new Error('فشل التحليل التقني');
+    console.error("API Error:", error);
+    throw new Error("فشل التحليل التقني");
   }
 };
 
 export const fetchSessionNotes = async (): Promise<SessionNote[]> => {
   return [
     {
-      id: '1',
-      date: new Date().toISOString().split('T')[0],
-      surah: 'الناس',
+      id: "1",
+      date: new Date().toISOString().split("T")[0],
+      surah: "الناس",
       accuracy: 85,
-      notes: 'أداء ممتاز مع تحسن ملحوظ.'
-    }
+      notes: "أداء ممتاز مع تحسن ملحوظ.",
+    },
   ];
 };
