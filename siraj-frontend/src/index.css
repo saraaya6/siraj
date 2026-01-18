@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Siraj Design System - Islamic Children's Education Platform */
+
+@layer base {
+  :root {
+    /* Primary Colors - Deep Teal Theme */
+    --background: 166 30% 96%;
+    --foreground: 168 100% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 168 100% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 168 100% 10%;
+
+    /* Primary - Deep Teal */
+    --primary: 168 100% 20%;
+    --primary-foreground: 166 100% 91%;
+
+    /* Primary Dark - Deepest Teal */
+    --primary-dark: 168 100% 10%;
+    --primary-dark-foreground: 166 100% 91%;
+
+    /* Secondary - Medium Teal */
+    --secondary: 168 100% 20%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted */
+    --muted: 166 30% 90%;
+    --muted-foreground: 168 50% 30%;
+
+    /* Accent - Bright Mint */
+    --accent: 168 100% 81%;
+    --accent-foreground: 168 100% 10%;
+
+    /* Accent Light - Soft Mint */
+    --accent-light: 166 100% 91%;
+    --accent-light-foreground: 168 100% 10%;
+
+    /* Feedback Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 45 93% 47%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Mistake Colors for Quran Review */
+    --mistake-missing: 0 84% 60%;
+    --mistake-extra: 45 93% 47%;
+    --mistake-replaced: 25 95% 53%;
+
+    --border: 168 30% 80%;
+    --input: 168 30% 85%;
+    --ring: 168 100% 40%;
+
+    --radius: 1rem;
+
+    /* Sidebar */
+    --sidebar-background: 168 100% 10%;
+    --sidebar-foreground: 166 100% 91%;
+    --sidebar-primary: 168 100% 81%;
+    --sidebar-primary-foreground: 168 100% 10%;
+    --sidebar-accent: 168 100% 15%;
+    --sidebar-accent-foreground: 166 100% 91%;
+    --sidebar-border: 168 50% 20%;
+    --sidebar-ring: 168 100% 81%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(168 100% 10%) 0%, hsl(168 100% 20%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(166 100% 97%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(168 100% 81%) 0%, hsl(166 100% 91%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(142 76% 46%) 100%);
+  }
+
+  .dark {
+    --background: 168 100% 5%;
+    --foreground: 166 100% 91%;
+
+    --card: 168 100% 8%;
+    --card-foreground: 166 100% 91%;
+
+    --popover: 168 100% 8%;
+    --popover-foreground: 166 100% 91%;
+
+    --primary: 168 100% 81%;
+    --primary-foreground: 168 100% 10%;
+
+    --secondary: 168 50% 15%;
+    --secondary-foreground: 166 100% 91%;
+
+    --muted: 168 50% 15%;
+    --muted-foreground: 166 50% 70%;
+
+    --accent: 168 100% 81%;
+    --accent-foreground: 168 100% 10%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 168 50% 20%;
+    --input: 168 50% 20%;
+    --ring: 168 100% 81%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    direction: rtl;
+  }
+
+  body {
+    @apply bg-background text-foreground font-cairo antialiased;
+  }
+
+  /* Arabic Typography */
+  .font-arabic {
+    font-family: 'Cairo', sans-serif;
+    font-feature-settings: 'ss01' on;
+  }
+}
+
+@layer components {
+  /* Hero Button Styles */
+  .btn-hero {
+    @apply bg-accent text-primary-dark font-bold px-8 py-4 rounded-2xl 
+           shadow-lg hover:shadow-xl transition-all duration-300 
+           hover:scale-105 active:scale-95;
+  }
+
+  .btn-hero-outline {
+    @apply border-2 border-accent text-accent font-bold px-8 py-4 rounded-2xl 
+           hover:bg-accent hover:text-primary-dark transition-all duration-300;
+  }
+
+  /* Card Styles */
+  .card-playful {
+    @apply bg-card rounded-3xl shadow-xl border-2 border-accent/20
+           hover:shadow-2xl hover:border-accent/40 transition-all duration-300;
+  }
+
+  .card-surah {
+    @apply bg-gradient-to-br from-card to-accent-light/30 rounded-2xl 
+           p-6 border-2 border-transparent hover:border-accent 
+           transition-all duration-300 cursor-pointer;
+  }
+
+  /* Recording Button */
+  .btn-record {
+    @apply w-24 h-24 rounded-full bg-destructive text-white 
+           flex items-center justify-center shadow-lg
+           hover:scale-110 active:scale-95 transition-all duration-200;
+  }
+
+  .btn-record.recording {
+    @apply animate-pulse bg-destructive shadow-[0_0_0_8px_rgba(239,68,68,0.3)];
+  }
+
+  /* Mistake Highlighting */
+  .word-missing {
+    @apply text-destructive bg-destructive/10 px-2 py-1 rounded-lg;
+  }
+
+  .word-extra {
+    @apply text-warning bg-warning/10 px-2 py-1 rounded-lg line-through;
+  }
+
+  .word-replaced {
+    @apply text-orange-500 bg-orange-100 px-2 py-1 rounded-lg;
+  }
+
+  .word-correct {
+    @apply text-success;
+  }
+
+  /* Navigation Active */
+  .nav-link-active {
+    @apply bg-accent/20 text-accent font-bold;
+  }
+
+  /* Sidebar Surah Item */
+  .surah-item {
+    @apply px-4 py-3 rounded-xl cursor-pointer transition-all duration-200
+           hover:bg-sidebar-accent text-sidebar-foreground;
+  }
+
+  .surah-item.active {
+    @apply bg-accent text-primary-dark font-bold;
+  }
+}
+
+@layer utilities {
+  /* Custom Animations */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .animate-sparkle {
+    animation: sparkle 1.5s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+  }
+
+  /* Glass Effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-lg;
+  }
+
+  /* Text Shadows */
+  .text-shadow-hero {
+    text-shadow: 0 4px 20px rgba(0, 51, 42, 0.3);
+  }
+}
